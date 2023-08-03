@@ -11,7 +11,7 @@ class SearchInput {
 
     $searchInput.addEventListener("keyup", e => {
       if (e.keyCode === 13) {
-        onSearch(e.target.value);
+        onSearch(e.target.value);//value는 app에서 정의한 keyword를 의미
       }
     });
 
