@@ -8,8 +8,8 @@ class SearchInput {
     this.$searchInput.placeholder = "고양이를 검색해보세요.|";
 
     $searchInput.className = "SearchInput";
-    $target.appendChild($searchInput);
-   //$target.appendChild($wrapper);
+    $wrapper.appendChild($searchInput);
+    $target.appendChild($wrapper);
 
     $searchInput.addEventListener("keyup", e => {
       if (e.keyCode === 13) {

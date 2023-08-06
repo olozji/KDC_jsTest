@@ -7,7 +7,7 @@ class App {
   constructor($target) {
     this.$target = $target;
 
-    this.Loading = new this.Loading({
+    this.Loading = new Loading({
       $target,
     });
 

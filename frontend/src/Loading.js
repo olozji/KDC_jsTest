@@ -6,7 +6,7 @@ class Loading {
 
     constructor({ $target }) {
       const $loading = document.createElement("div");
-      this.$Loading = $loading;
+      this.$loading = $loading;
       $target.appendChild(this.$loading);
 
       this.data = {

@@ -26,7 +26,8 @@ class DarkModeToggle {
    // isDarkmode state, checkbox 상태, html attr
    // matchMedia 란 미디어쿼리를 객체를 반환함으로서 조작한다. 그중 matches는 true / false를 반환한다.
    // 다크모드를 윈도우에서 받아온다. (matchMedia로)
-   this.isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+   this.isDarkMode = window.matchMedia(
+    '(prefers-color-scheme: dark)').matches;
 
    // 상태를 업데이트하는 조건문을 걸어준다
    this.$DarkModeToggle.checked = this.isDarkMode;
