@@ -9,7 +9,7 @@ class SearchInput {
 
     $searchInput.className = "SearchInput";
     $target.appendChild($searchInput);
-    $target.appendChild($wrapper);
+   //$target.appendChild($wrapper);
 
     $searchInput.addEventListener("keyup", e => {
       if (e.keyCode === 13) {

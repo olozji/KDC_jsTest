@@ -6,7 +6,7 @@ class Loading {
 
     constructor({ $target }) {
       const $loading = document.createElement("div");
-      this.#Loading = $loading;
+      this.$Loading = $loading;
       $target.appendChild(this.$loading);
 
       this.data = {
@@ -38,7 +38,7 @@ class Loading {
    render(){
     if(this.data.show){
         this.$loading.innerHTML = `
-        <div class="loading">
+        <div class="Loading">
           <p>
             로딩중
          </p>
