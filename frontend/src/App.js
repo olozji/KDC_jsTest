@@ -13,9 +13,9 @@ class App {
 
     this.DarkModeToggle = new DarkModeToggle({
       $target,
-      onSearch: keyword => {
-        api.fetchCats(keyword).then(({ data }) => this.setState(data));
-      }
+      // onSearch: keyword => {
+      //   api.fetchCats(keyword).then(({ data }) => this.setState(data));
+      // }
     });
 
     this.searchInput = new SearchInput({
@@ -31,16 +31,25 @@ class App {
           console.log('hide');
           this.Loading.hide();
         });
+      },
+      // 랜덤 고양이 메소드 생성
+      onRandomSearch: () => {
+        api.fetchRandomCats().then(({data}) => {
+          this.setState(data);
+          this.Loading.hide();
+        })
       }
     });
 
     this.searchResult = new SearchResult({
       $target,
       initialData: this.data,
-      onClick: image => {
-        this.imageInfo.setState({
+      onClick: cat => {
+        console.log(cat);
+
+        this.imageInfo.showDetail({
           visible: true,
-          image
+          cat
         });
       }
     });

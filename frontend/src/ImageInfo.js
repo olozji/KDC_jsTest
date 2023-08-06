@@ -18,9 +18,30 @@ class ImageInfo {
     this.render();
   }
 
+  showDetail(data) {
+    console.log(data.cat.id);
+
+    // api 상세 정보 요청
+    api.fetchCatDetail(data.cat.id).then(({data}) => {
+      // 정보를 업데이트(setState) 한다
+      this.setState({
+        visible:true,
+        cat:data
+      });
+    })
+  }
+
+  closeImageInfo(){
+    console.log('닫기');
+    this.setState({
+      visible:false,
+      cat: undefined
+    });
+  }
+
   render() {
     if (this.data.visible) {
-      const { name, url, temperament, origin } = this.data.image;
+      const { name, url, temperament, origin } = this.data.cat;
 
       this.$imageInfo.innerHTML = `
         <div class="content-wrapper">
@@ -35,6 +56,33 @@ class ImageInfo {
           </div>
         </div>`;
       this.$imageInfo.style.display = "block";
+
+      // closeImageInfo 이벤트 생성
+      // this.$imageInfo.querySelector('.close')
+      // .addEventListener("click", (e) => {
+      //   console.log(e);
+      //   this.closeImageInfo();
+      // });
+
+      // key event에 대해 다루기(keypress, keyup, keydown)
+      //ESC 키는 keydown으로 활용
+      document.addEventListener("keydown", (e) => {
+        console.log(e.key);
+        if(e.key === 'Escape') {
+          this.closeImageInfo();
+        }
+      })
+
+      // 모달 외 영역 클릭 시 close event
+      this.$imageInfo.addEventListener("click", (e) => {
+        console.log(e.target.className);
+        // class로 영역과 구분지어 이벤트를 생성
+        if(e.target.className === 'ImageInfo' || e.target.className === 'close'){
+          this.closeImageInfo();
+        }
+      })
+
+
     } else {
       this.$imageInfo.style.display = "none";
     }
