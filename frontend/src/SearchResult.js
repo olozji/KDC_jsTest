@@ -21,6 +21,19 @@ class SearchResult {
     this.render();
   }
 
+  applyEventToElement = (items) => {
+    document.addEventListener('scroll', () => {
+      items.forEach((el,index) => {
+       // console.log(items.length)
+        if (this.isElementInViewport(el) && (items.length-1 === index)){
+          console.log('마지막 & 다음 페이지 로딩');
+          this.onNextPage();
+        }
+       // console.log(this.isElementInViewport(el));
+      })
+    })
+  }
+
   render() {
     this.$searchResult.innerHTML = this.data
       .map(

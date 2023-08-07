@@ -3,6 +3,8 @@ console.log("app is running!");
 class App {
   $target = null;
   data = [];
+  // 기본 페이지
+  page = 1;
 
   constructor($target) {
     this.$target = $target;
@@ -30,6 +32,8 @@ class App {
           // 로딩 hide
           console.log('hide');
           this.Loading.hide();
+          // 로컬에 저장
+          this.saveResult(data);
         });
       },
       // 랜덤 고양이 메소드 생성
@@ -51,7 +55,25 @@ class App {
           visible: true,
           cat
         });
-      }
+      },
+      onNextPage: () => {
+        console.log('다음페이지 로딩');
+        this.Loading.show();
+        const keywordHistory = localStorage.getItem('keywordHistory') //string
+        === null ? [] : JSON.parse(localStorage.getItem('keywordHistory')); //배열
+        
+        const lastKeyword = keywordHistory[0];
+        const page = this.page + 1;
+        api.fetchCatsPage(lastKeyword, page).then(({ data }) => {
+          // 과거의 데이터 배열에 새로운 데이터를 추가한다.
+          let newData = this.data.concat(data);//추가
+          this.setState(newData);
+          this.page = page;
+          // 로딩 hide
+          console.log('hide');
+          this.Loading.hide();
+      })
+    }
     });
 
     this.imageInfo = new ImageInfo({
@@ -61,11 +83,26 @@ class App {
         image: null
       }
     });
+    this.init();
   }
 
   setState(nextData) {
     console.log(this);
     this.data = nextData;
     this.searchResult.setState(nextData);
+  }
+
+  saveResult(result){
+    console.log(result);
+    // 받은 인자 값을 로컬스토리지에 저장을 한다.
+    localStorage.setItem('lastResult', JSON.stringify(result));
+  }
+
+  init(){
+    const lastResult = localStorage.getItem('lastResult') //string
+    === null ? [] : JSON.parse(localStorage.getItem('lastResult')); //배열
+    console.log(lastResult);
+    // 새로고침 시 가져온 데이터를 기반으로 업데이트 해준다.
+    this.setState(lastResult);
   }
 }

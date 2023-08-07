@@ -13,9 +13,13 @@ class SearchInput {
     $wrapper.appendChild($searchInput);
     
 
-    $searchInput.addEventListener("keyup", e => {
-      if (e.keyCode === 13) {
+    $searchInput.addEventListener("keypress", e => {
+      if (e.key === 'Enter') {
         onSearch(e.target.value);//value는 app에서 정의한 keyword를 의미
+        
+        // 최근 키워드 저장
+        // 부모 컴포넌트인 곳에서 호출
+        this.keywordHistory.addKeyword(e.target.value);
       }
     });
 
@@ -29,6 +33,11 @@ class SearchInput {
     $randomButton.addEventListener("click", e => {
         onRandomSearch();
     });
+
+    this.keywordHistory = new KeyWordHistory({
+      $target,
+      onSearch
+    })
 
     console.log("SearchInput created.", this);
   }
