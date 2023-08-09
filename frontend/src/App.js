@@ -1,5 +1,12 @@
 console.log("app is running!");
 
+import Loading from './Loading';
+import DarkModeToggle from './DarkModeToggle';
+import searchInput from './SearchInput';
+import searchResult from './SearchResult';
+import imageInfo from './ImageInfo';
+import api from './api';
+
 class App {
   $target = null;
   data = [];
@@ -28,7 +35,7 @@ class App {
         this.Loading.show();
         api.fetchCats(keyword).then(({ data }) => {
           // 목록 데이터 제공
-          this.setState(data);
+          this.setState(data ? data : []);
           // 로딩 hide
           console.log('hide');
           this.Loading.hide();
@@ -106,3 +113,5 @@ class App {
     this.setState(lastResult);
   }
 }
+
+export default App;

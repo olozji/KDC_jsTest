@@ -1,3 +1,5 @@
+import api from "./api";
+
 class ImageInfo {
   $imageInfo = null;
   data = null;
@@ -88,3 +90,5 @@ class ImageInfo {
     }
   }
 }
+
+export default ImageInfo;

@@ -1,3 +1,5 @@
+import uniqueArray from "./utils/uniqueArray";
+
 class KeyWordHistory {
     $keywordHistory = null;
     data = null;
@@ -33,6 +35,10 @@ class KeyWordHistory {
         // 최근 키워드 저장
         // 배열로 반환이 되고 인자를 맨 앞에 위치 시키기 위해 unShift
         keywordHistory.unshift(keyword);
+        
+        // 중복 제거
+        keywordHistory.uniqueArray(keywordHistory);
+        console.log(keywordHistory);
         // 검색 노출을 5개로 제한한다.
         keywordHistory = keywordHistory.slice(0,5);
         // 그대로 string으로 반환이 되기 때문에 join함수를 쓴다.

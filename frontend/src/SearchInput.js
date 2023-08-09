@@ -1,3 +1,5 @@
+import keywordHistory from './KeyWordHistory';
+
 const TEMPLATE = '<input type="text">';
 
 class SearchInput {
@@ -43,3 +45,5 @@ class SearchInput {
   }
   render() {}
 }
+
+export default SearchInput;
