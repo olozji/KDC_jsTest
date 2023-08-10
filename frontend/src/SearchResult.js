@@ -1,3 +1,5 @@
+import Empty from "./Empty";
+
 class SearchResult {
   $searchResult = null;
   data = null;
@@ -13,12 +15,17 @@ class SearchResult {
     this.data = initialData;
     this.onClick = onClick;
 
+    this.Empty = new Empty({
+      $target : $wrapper;
+    })
+
     this.render();
   }
 
   setState(nextData) {
     this.data = nextData;
     this.render();
+    this.Empty.show(nextData);
   }
 
   // isElementInViewport(el) {
@@ -70,6 +77,11 @@ class SearchResult {
   })
 
   render() {
+    if(this.data === null || this.data.length === 0) {
+      this.$searchResult.style.display = "none";
+      return;
+    }
+    this.$searchResult.style.display = "grid";
     this.$searchResult.innerHTML = this.data
       .map(
         cat, index => `

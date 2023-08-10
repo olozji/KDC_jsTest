@@ -118,12 +118,18 @@ body * {
   text-align: center;
 }
 
-.Loading p{
+.Loading p {
   position: absolute;
   top:50%;
   left:50%;
   transform: translate(-50%, -50%);
   font-size: 40px;
+}
+
+.empty {
+  text-align: center;
+  font-size: 30px;
+  padding: 100px 0;
 }
 
 @media screen and (max-width:992px) {

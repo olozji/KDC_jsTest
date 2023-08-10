@@ -38,7 +38,7 @@ class App {
         api.fetchCats(keyword).then(({ data }) => {
           // 목록 데이터 제공
           this.setState({
-            itmes: data ? data : [],
+            itmes: data,
             page:this.DEFAULT_PAGE
           });
           // 로딩 hide
