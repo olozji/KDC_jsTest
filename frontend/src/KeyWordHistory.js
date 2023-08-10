@@ -59,13 +59,7 @@ class KeyWordHistory {
         this.render();
     }
 
-
-    render() {
-        this.$keywordHistory.innerHTML = this.data.map(
-            keyword => `
-              <li><button>${keyword}</button></li>  
-            `
-        ).join('');
+    bindEvent(){
         this.$keywordHistory.querySelectorAll('li button')
         .forEach(($item, index) => {
             $item.addEventListener("click", () => {
@@ -75,4 +69,17 @@ class KeyWordHistory {
             })
         });
     }
+
+
+    render() {
+        this.$keywordHistory.innerHTML = this.data.map(
+            keyword => `
+              <li><button>${keyword}</button></li>  
+            `
+        ).join('');
+
+        this.bindEvent();
+    }
 }
+
+export default KeyWordHistory;

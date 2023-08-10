@@ -2,16 +2,18 @@ console.log("app is running!");
 
 import Loading from './Loading';
 import DarkModeToggle from './DarkModeToggle';
-import searchInput from './SearchInput';
-import searchResult from './SearchResult';
-import imageInfo from './ImageInfo';
+import SearchInput from './SearchInput';
+import SearchResult from './SearchResult';
+import ImageInfo from './ImageInfo';
 import api from './api';
 
 class App {
   $target = null;
-  data = [];
-  // 기본 페이지
-  page = 1;
+  DEFAULT_PAGE = 1;
+  data = {
+    items:[],
+    page:this.DEFAULT_PAGE
+  }
 
   constructor($target) {
     this.$target = $target;
@@ -27,7 +29,7 @@ class App {
       // }
     });
 
-    this.searchInput = new SearchInput({
+    this.SearchInput = new SearchInput({
       $target,
       onSearch: keyword => {
         // 로딩 show
@@ -35,7 +37,10 @@ class App {
         this.Loading.show();
         api.fetchCats(keyword).then(({ data }) => {
           // 목록 데이터 제공
-          this.setState(data ? data : []);
+          this.setState({
+            itmes: data ? data : [],
+            page:this.DEFAULT_PAGE
+          });
           // 로딩 hide
           console.log('hide');
           this.Loading.hide();
@@ -46,15 +51,18 @@ class App {
       // 랜덤 고양이 메소드 생성
       onRandomSearch: () => {
         api.fetchRandomCats().then(({data}) => {
-          this.setState(data);
+          this.setState({
+            itmes: data ? data : [],
+            page:this.DEFAULT_PAGE
+          });
           this.Loading.hide();
         })
       }
     });
 
-    this.searchResult = new SearchResult({
+    this.SearchResult = new SearchResult({
       $target,
-      initialData: this.data,
+      initialData: this.data.items,
       onClick: cat => {
         console.log(cat);
 
@@ -74,7 +82,10 @@ class App {
         api.fetchCatsPage(lastKeyword, page).then(({ data }) => {
           // 과거의 데이터 배열에 새로운 데이터를 추가한다.
           let newData = this.data.concat(data);//추가
-          this.setState(newData);
+          this.setState({
+            itmes: newData,
+            page:this.DEFAULT_PAGE
+          });
           this.page = page;
           // 로딩 hide
           console.log('hide');
@@ -83,7 +94,7 @@ class App {
     }
     });
 
-    this.imageInfo = new ImageInfo({
+    this.ImageInfo = new ImageInfo({
       $target,
       data: {
         visible: false,
@@ -96,7 +107,7 @@ class App {
   setState(nextData) {
     console.log(this);
     this.data = nextData;
-    this.searchResult.setState(nextData);
+    this.SearchResult.setState(nextData.items);
   }
 
   saveResult(result){
@@ -110,7 +121,10 @@ class App {
     === null ? [] : JSON.parse(localStorage.getItem('lastResult')); //배열
     console.log(lastResult);
     // 새로고침 시 가져온 데이터를 기반으로 업데이트 해준다.
-    this.setState(lastResult);
+    this.setState({
+      items: lastResult,
+      page:this.DEFAULT_PAGE
+    });
   }
 }
 
