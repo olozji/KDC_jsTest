@@ -40,7 +40,7 @@ class Empty {
   
    render(){
     if(this.data.show){
-       this.$empty.style.diplay = 'block';
+      //  this.$empty.style.diplay = 'block';
        if(this.data.isNull) {
         this.$empty.innerHTML = `
         <p>
@@ -56,7 +56,7 @@ class Empty {
        }  
     } else {
         // innerHTML 초기화
-        this.$empty.style.diplay = 'none';
+        // this.$empty.style.diplay = 'none';
         this.$empty.innerHTML = '';
     }
    }

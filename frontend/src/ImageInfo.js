@@ -13,11 +13,20 @@ class ImageInfo {
     this.data = data;
 
     this.render();
+    this.setFade(nextData.visible);
   }
 
   setState(nextData) {
     this.data = nextData;
     this.render();
+  }
+
+  setFade(visible){
+      if(visible) {
+        this.$imageInfo.classList.add('show');
+      } else {
+        this.$imageInfo.classList.remove('show');
+      }
   }
 
   async showDetail(data) {
@@ -56,7 +65,7 @@ class ImageInfo {
             <div>태생: ${origin}</div>
           </div>
         </div>`;
-      this.$imageInfo.style.display = "block";
+      // this.$imageInfo.style.display = "block";
 
       // closeImageInfo 이벤트 생성
       // this.$imageInfo.querySelector('.close')
@@ -85,7 +94,7 @@ class ImageInfo {
 
 
     } else {
-      this.$imageInfo.style.display = "none";
+      // this.$imageInfo.style.display = "none";
     }
   }
 }

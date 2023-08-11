@@ -16,7 +16,7 @@ class SearchResult {
     this.onClick = onClick;
 
     this.Empty = new Empty({
-      $target : $wrapper;
+      $target : $wrapper
     })
 
     this.render();
@@ -86,7 +86,11 @@ class SearchResult {
       .map(
         cat, index => `
           <li class="item" data-index=${index}>
-            <img src="https://via.placeholder.com/200*300" data-src=${cat.url} alt=${cat.name} />
+            <img src="https://via.placeholder.com/200*300" 
+            data-src=${cat.url} alt=${cat.name} />
+            <div class="content>
+              ${cat.name}
+            </div>
           </li>
         `
       )

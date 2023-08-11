@@ -6,6 +6,7 @@ import SearchInput from './SearchInput';
 import SearchResult from './SearchResult';
 import ImageInfo from './ImageInfo';
 import api from './api';
+import Banner from './Banner';
 
 class App {
   $target = null;
@@ -31,11 +32,11 @@ class App {
 
     this.SearchInput = new SearchInput({
       $target,
-      onSearch: keyword => {
+      onSearch: (keyword, limit) => {
         // 로딩 show
         console.log('show');
         this.Loading.show();
-        api.fetchCats(keyword).then(({ data }) => {
+        api.fetchCatsWithLimit(keyword,limit).then(({ data }) => {
           // 목록 데이터 제공
           this.setState({
             itmes: data,
@@ -59,6 +60,10 @@ class App {
         })
       }
     });
+
+    this.banner = new Banner({
+      $target
+    })
 
     this.SearchResult = new SearchResult({
       $target,
